@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Assignment/Core/Inc/main_fsm.h&apos; to &apos;man_fsm.h&apos;" description="Rename resource &apos;main_fsm.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Inc/main_fsm.h" name="man_fsm.h" stamp="1670290008250" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Assignment/Core/Src/main_fsm.c&apos; to &apos;man_fsm.c&apos;" description="Rename resource &apos;main_fsm.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/main_fsm.c" name="man_fsm.c" stamp="1670290016837" updateReferences="true"/>
+</session>

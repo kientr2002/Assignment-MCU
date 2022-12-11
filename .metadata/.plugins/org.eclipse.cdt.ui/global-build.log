@@ -1,0 +1,61 @@
+11:59:43 **** Incremental Build of configuration Debug for project Assignment ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/auto_fsm.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/auto_fsm.d" -MT"Core/Src/auto_fsm.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/auto_fsm.o"
+arm-none-eabi-gcc "../Core/Src/man_fsm.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/man_fsm.d" -MT"Core/Src/man_fsm.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/man_fsm.o"
+../Core/Src/auto_fsm.c: In function 'auto_fsm_run':
+../Core/Src/man_fsm.c: In function 'man_fsm_run':
+../Core/Src/auto_fsm.c:19:3: warning: implicit declaration of function 'GREEN_2'; did you mean 'GREEN_3'? [-Wimplicit-function-declaration]
+   19 |   GREEN_2();
+      |   ^~~~~~~
+      |   GREEN_3
+../Core/Src/man_fsm.c:14:3: warning: implicit declaration of function 'GREEN_2'; did you mean 'GREEN_3'? [-Wimplicit-function-declaration]
+   14 |   GREEN_2();
+      |   ^~~~~~~
+      |   GREEN_3
+../Core/Src/auto_fsm.c:37:3: warning: implicit declaration of function 'YELLOW_2'; did you mean 'YELLOW_1'? [-Wimplicit-function-declaration]
+   37 |   YELLOW_2();
+      |   ^~~~~~~~
+      |   YELLOW_1
+../Core/Src/man_fsm.c:37:3: warning: implicit declaration of function 'YELLOW_2'; did you mean 'YELLOW_1'? [-Wimplicit-function-declaration]
+   37 |   YELLOW_2();
+      |   ^~~~~~~~
+      |   YELLOW_1
+../Core/Src/auto_fsm.c:55:3: warning: implicit declaration of function 'RED_2'; did you mean 'RED_3'? [-Wimplicit-function-declaration]
+   55 |   RED_2();
+      |   ^~~~~
+      |   RED_3
+../Core/Src/man_fsm.c:57:3: warning: implicit declaration of function 'RED_2'; did you mean 'RED_3'? [-Wimplicit-function-declaration]
+   57 |   RED_2();
+      |   ^~~~~
+      |   RED_3
+arm-none-eabi-gcc -o "Assignment.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Workspace\VXL\ASM\MCUProject-THam\Assignment\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Assignment.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Assignment.elf
+ 
+arm-none-eabi-size   Assignment.elf 
+arm-none-eabi-objdump -h -S  Assignment.elf  > "Assignment.list"
+arm-none-eabi-objcopy  -O ihex  Assignment.elf  "Assignment.hex"
+arm-none-eabi-objcopy  -O binary  Assignment.elf  "Assignment.bin"
+   text	   data	    bss	    dec	    hex	filename
+  11176	     80	   1776	  13032	   32e8	Assignment.elf
+Finished building: default.size.stdout
+ 
+Finished building: Assignment.hex
+Finished building: Assignment.bin
+ 
+ 
+Finished building: Assignment.list
+ 
+11:59:50 **** Incremental Build of configuration Debug for project Assignment ****
+make -j12 all 
+arm-none-eabi-size   Assignment.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11176	     80	   1776	  13032	   32e8	Assignment.elf
+Finished building: default.size.stdout
+ 
+12:00:36 **** Incremental Build of configuration Debug for project Assignment ****
+make -j12 all 
+arm-none-eabi-size   Assignment.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11176	     80	   1776	  13032	   32e8	Assignment.elf
+Finished building: default.size.stdout
+ 

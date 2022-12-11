@@ -1,0 +1,7 @@
+software_timer.c:16:6:SetTimer1	16	static
+software_timer.c:21:6:SetTimer2	16	static
+software_timer.c:26:6:TimerRun	4	static
+software_timer.c:56:6:IncRed5s	16	static
+software_timer.c:62:6:IncYellow2s	16	static
+software_timer.c:68:6:IncGreen3s	16	static
+software_timer.c:74:6:SetTimerForPed	16	static
