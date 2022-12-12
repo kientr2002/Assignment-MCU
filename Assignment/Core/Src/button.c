@@ -6,7 +6,7 @@
  */
 #include "button.h"
 
-int button1_flag = 0, button2_flag = 0, button3_flag = 0;
+int button1_flag = 0, button2_flag = 0, button3_flag = 0, button4_flag = 0;
 int KeyReg0 = NORMAL_STATE;
 int KeyReg1 = NORMAL_STATE;
 int KeyReg2 = NORMAL_STATE;
@@ -25,6 +25,12 @@ int KeyReg10 = NORMAL_STATE;
 int KeyReg11 = NORMAL_STATE;
 int TimerForKeyPress3 = 100;
 
+int KeyReg12 = NORMAL_STATE;
+int KeyReg13 = NORMAL_STATE;
+int KeyReg14 = NORMAL_STATE;
+int KeyReg15 = NORMAL_STATE;
+int TimerForKeyPress4 = 100;
+
 void SubKeyProcess1() {
 	button1_flag = 1;
 }
@@ -35,6 +41,10 @@ void SubKeyProcess2() {
 
 void SubKeyProcess3() {
 	button3_flag = 1;
+}
+
+void SubKeyProcess4() {
+	button4_flag = 1;
 }
 
 int Button1_Is_Pressed () {
@@ -56,6 +66,14 @@ int Button2_Is_Pressed () {
 int Button3_Is_Pressed () {
 	if (button3_flag == 1) {
 		button3_flag = 0;
+		return 1;
+	}
+	return 0;
+}
+
+int Button4_Is_Pressed () {
+	if (button4_flag == 1) {
+		button4_flag = 0;
 		return 1;
 	}
 	return 0;
@@ -106,7 +124,7 @@ void GetKeyInput2() {
 void GetKeyInput3() {
 	KeyReg8 = KeyReg9;
 	KeyReg9 = KeyReg10;
-	KeyReg10 = HAL_GPIO_ReadPin(A0_GPIO_Port, A0_Pin);
+	KeyReg10 = HAL_GPIO_ReadPin(A3_GPIO_Port, A3_Pin);
 	if ((KeyReg8 == KeyReg9) && (KeyReg9 == KeyReg10)) {
 		if (KeyReg11 != KeyReg10) {
 			KeyReg11 = KeyReg10;
@@ -119,6 +137,27 @@ void GetKeyInput3() {
 			TimerForKeyPress3--;
 			if (TimerForKeyPress3 == 0) {
 				KeyReg11 = NORMAL_STATE;
+			}
+		}
+	}
+}
+
+void GetKeyInput4() {
+	KeyReg12 = KeyReg13;
+	KeyReg13 = KeyReg14;
+	KeyReg14 = HAL_GPIO_ReadPin(A0_GPIO_Port, A0_Pin);
+	if ((KeyReg12 == KeyReg13) && (KeyReg13 == KeyReg14)) {
+		if (KeyReg15 != KeyReg14) {
+			KeyReg15 = KeyReg14;
+			if (KeyReg14 == PRESSED_STATE) {
+				SubKeyProcess4();
+				TimerForKeyPress4 = 100;
+			}
+		}
+		else {
+			TimerForKeyPress4--;
+			if (TimerForKeyPress4 == 0) {
+				KeyReg15 = NORMAL_STATE;
 			}
 		}
 	}

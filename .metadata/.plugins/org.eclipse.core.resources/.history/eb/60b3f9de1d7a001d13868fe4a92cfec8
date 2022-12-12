@@ -1,0 +1,46 @@
+/*
+ * ped_fsm.c
+ *
+ *  Created on: Dec 6, 2022
+ *      Author: Admin
+ */
+#include "ped_fsm.h"
+
+#define 		22
+#define 	23
+#define 		24
+#define TUN_YELLOW1_RED2	25
+
+void ped_fsm_run() {
+	switch (status) {
+
+	case TUN_RED1_GREEN2:
+		GREEN_1();
+		YELLOW_2();
+		RED_3();
+		if (timer1_flag == 1) {
+			Traffic3_Off();
+			status = AUTO_YELLOW;
+			SetTimer1(2000);
+		}
+		break;
+
+	case TUN_RED1_YELLOW2:
+		RED_1();
+		GREEN_2();
+		GREEN_3();
+
+		if (timer1_flag == 1) {
+			Traffic3_Off();
+			status = AUTO_GREEN;
+			SetTimer1(3000);
+		}
+		break;
+
+	case TUN_GREEN1_RED2:
+		break;
+	case :
+		break;
+	}
+}
+
