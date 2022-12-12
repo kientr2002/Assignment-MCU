@@ -25,8 +25,8 @@
 #include "global.h"
 #include "auto_fsm.h"
 #include "man_fsm.h"
-//#include "tun_fsm.h"
-//#include "ped_fsm.h"
+#include "tun_fsm.h"
+#include "ped_fsm.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -118,8 +118,8 @@ int main(void)
   {
 	  auto_fsm_run();
 	  man_fsm_run();
-	  //tun_fsm_run();
-	  //ped_fsm_run();
+	  tun_fsm_run();
+	  ped_fsm_run();
 	  //HAL_Delay(10);
 
 //	  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 100);
@@ -328,6 +328,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	GetKeyInput1();
 	GetKeyInput2();
 	GetKeyInput3();
+	GetKeyInput4();
 }
 /* USER CODE END 4 */
 

@@ -11,78 +11,81 @@ void auto_fsm_run() {
 	switch (status) {
 
 	case INIT:
-		status = RED1_GREEN2;
-		SetTimer1(3000);
+		Traffic1_Off();
+		Traffic2_Off();
+		Traffic3_Off();
+
+		if (Button1_Is_Pressed() == 1) {
+			status = AUTO_RED1_GREEN2;
+			SetTimer1(3000);
+		}
 		break;
 
-	case RED1_GREEN2:
+	case AUTO_RED1_GREEN2:
 		RED_1();
 		GREEN_2();
 		GREEN_3();
 
 		if (timer1_flag == 1) {
-			status = RED1_YELLOW2;
+			status = AUTO_RED1_YELLOW2;
 			SetTimer1(2000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = MAN_GREEN1_RED2;
+			status = MAN_RED1_GREEN2;
 			SetTimer1(3000);
-		}
-		if (Button3_Is_Pressed() == 1) {
-			status = RED1_GREEN2;
 		}
 		break;
 
-	case RED1_YELLOW2:
+	case AUTO_RED1_YELLOW2:
 		RED_1();
 		YELLOW_2();
 		GREEN_3();
 
 		if (timer1_flag == 1) {
-			status = GREEN1_RED2;
+			status = AUTO_GREEN1_RED2;
 			SetTimer1(3000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = MAN_GREEN1_RED2;
+			status = MAN_RED1_GREEN2;
 			SetTimer1(3000);
-		}
-		if (Button3_Is_Pressed() == 1) {
-			status = RED1_YELLOW2;
 		}
 		break;
 
-	case GREEN1_RED2:
+	case AUTO_GREEN1_RED2:
 		GREEN_1();
 		RED_2();
 		RED_3();
 
 		if (timer1_flag == 1) {
-			status = YELLOW1_RED2;
+			status = AUTO_YELLOW1_RED2;
 			SetTimer1(2000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = RED1_GREEN2;
-			SetTimer1(2000);
+			status = MAN_RED1_GREEN2;
+			SetTimer1(3000);
 		}
-		if (Button3_Is_Pressed() == 1) {
-			status = GREEN1_RED2;
+		if (Button4_Is_Pressed() == 1) {
+			status = PED_RED1_RED2;
+			SetTimer1(3000);
 		}
 		break;
 
-	case YELLOW1_RED2:
+	case AUTO_YELLOW1_RED2:
 		YELLOW_1();
 		RED_2();
 		RED_3();
 
 		if (timer1_flag == 1) {
-			status = RED1_GREEN2;
+			status = AUTO_RED1_GREEN2;
 			SetTimer1(3000);
 		}
 		if (Button1_Is_Pressed() == 1) {
 			status = MAN_RED1_GREEN2;
+			SetTimer1(3000);
 		}
-		if (Button3_Is_Pressed() == 1) {
-			status = YELLOW1_RED2;
+		if (Button4_Is_Pressed() == 1) {
+			status = PED_RED1_RED2;
+			SetTimer2(2000);
 		}
 		break;
 	}

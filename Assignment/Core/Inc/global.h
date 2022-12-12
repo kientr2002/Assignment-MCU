@@ -15,22 +15,23 @@
 #include "pdtlight1.h"
 
 #define INIT				1
-#define RED1_GREEN2 		2
-#define RED1_YELLOW2		3
-#define GREEN1_RED2			4
-#define	YELLOW1_RED2		5
+
+#define AUTO_RED1_GREEN2 		2
+#define AUTO_RED1_YELLOW2		3
+#define AUTO_GREEN1_RED2		4
+#define	AUTO_YELLOW1_RED2		5
 
 #define MAN_RED1_GREEN2 		12
 #define MAN_RED1_YELLOW2		13
 #define MAN_GREEN1_RED2			14
 #define	MAN_YELLOW1_RED2		15
 
-#define TUN_RED 			22
-#define TUN_YELLOW			23
-#define TUN_GREEN			24
+#define TUN_RED1_GREEN2		22
+#define TUN_RED1_YELLOW2	23
+#define TUN_GREEN1_RED2		24
+#define TUN_YELLOW1_RED2	25
 
-#define PED_RED				32
-#define PED_GREEN			34
+#define PED_RED1_RED2		32
 
 extern int status;
 

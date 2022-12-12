@@ -1,0 +1,20 @@
+/*
+ * ped_fsm.c
+ *
+ *  Created on: Dec 6, 2022
+ *      Author: Admin
+ */
+#include "ped_fsm.h"
+
+void ped_fsm_run() {
+	switch (status) {
+
+	case PED_RED1_RED2:
+		RED_1();
+		RED_2();
+		GREEN_3();
+		// buzzer_ring()
+		break;
+	}
+}
+

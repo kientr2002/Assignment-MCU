@@ -15,20 +15,16 @@ void man_fsm_run() {
 		GREEN_3();
 
 		if (timer1_flag == 1) {
-			status = RED1_YELLOW2;
+			status = AUTO_RED1_YELLOW2;
 			SetTimer1(2000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = MAN_RED1_YELLOW2;
-			SetTimer1(3000);
+			status = TUN_RED1_GREEN2;
+			SetTimer1(10000);
 		}
-////		if (Button2_Is_Pressed() == 1){
-////			status = TUN_RED;
-////			IncRed5s(5000);
-////		}
-		if (Button3_Is_Pressed() == 1)
-		{
-			status = MAN_RED1_GREEN2;
+		if (Button2_Is_Pressed() == 1){
+			status = MAN_RED1_YELLOW2;
+			SetTimer1(2000);
 		}
 		break;
 
@@ -38,53 +34,55 @@ void man_fsm_run() {
 		GREEN_3();
 
 		if (timer1_flag == 1) {
-			status = GREEN1_RED2;
+			status = AUTO_GREEN1_RED2;
 			SetTimer1(3000);
 		}
 		if (Button1_Is_Pressed() == 1) {
+			status = TUN_RED1_GREEN2;
+			SetTimer1(10000);
+		}
+		if (Button2_Is_Pressed() == 1) {
 			status = MAN_GREEN1_RED2;
 			SetTimer1(3000);
 		}
-//		if (Button2_Is_Pressed() == 1) {
-//			status = TUN_YELLOW;
-//			IncYellow2s(2000);
-//		}
 		break;
 
 	case MAN_GREEN1_RED2:
 		GREEN_1();
 		RED_2();
 		RED_3();
+
 		if (timer1_flag == 1) {
-			status = YELLOW1_RED2;
+			status = AUTO_YELLOW1_RED2;
 			SetTimer1(2000);
 		}
 		if (Button1_Is_Pressed() == 1) {
+			status = TUN_RED1_GREEN2;
+			SetTimer1(10000);
+		}
+		if (Button2_Is_Pressed() == 1) {
 			status = MAN_YELLOW1_RED2;
 			SetTimer1(2000);
 		}
-//		if (Button2_Is_Pressed() == 1) {
-//			status = TUN_GREEN;
-//			IncGreen3s(3000);
-//		}
-//		if (Button3_Is_Pressed() == 1) {
-//			status = PED_RED;
-//			SetTimer1(3000);
-//		}
 		break;
 
 	case MAN_YELLOW1_RED2:
 		YELLOW_1();
 		RED_2();
 		RED_3();
+
 		if (timer1_flag == 1) {
-					status = RED1_GREEN2;
-					SetTimer1(3000);
-				}
-				if (Button1_Is_Pressed() == 1) {
-					status = MAN_RED1_GREEN2;
-					SetTimer1(2000);
-				}
+			status = AUTO_RED1_GREEN2;
+			SetTimer1(3000);
+		}
+		if (Button1_Is_Pressed() == 1) {
+			status = TUN_RED1_GREEN2;
+			SetTimer1(10000);
+		}
+		if (Button2_Is_Pressed() == 1) {
+			status = MAN_RED1_GREEN2;
+			SetTimer1(3000);
+		}
 		break;
 	}
 }
