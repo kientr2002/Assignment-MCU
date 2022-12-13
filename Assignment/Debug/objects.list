@@ -1,5 +1,6 @@
 "./Core/Src/auto_fsm.o"
 "./Core/Src/button.o"
+"./Core/Src/buzzer.o"
 "./Core/Src/global.o"
 "./Core/Src/main.o"
 "./Core/Src/man_fsm.o"
