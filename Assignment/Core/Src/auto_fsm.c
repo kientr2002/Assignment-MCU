@@ -14,6 +14,7 @@ void auto_fsm_run() {
 		Traffic1_Off();
 		Traffic2_Off();
 		Traffic3_Off();
+		buzzer_off();
 
 		if (Button1_Is_Pressed() == 1) {
 			status = AUTO_RED1_GREEN2;
@@ -25,8 +26,10 @@ void auto_fsm_run() {
 		RED_1();
 		GREEN_2();
 		GREEN_3();
+		buzzer_ring();
 
 		if (timer1_flag == 1) {
+			buzzer_off();
 			status = AUTO_RED1_YELLOW2;
 			SetTimer1(2000);
 		}
@@ -40,14 +43,16 @@ void auto_fsm_run() {
 		RED_1();
 		YELLOW_2();
 		GREEN_3();
+		buzzer_ring();
 
 		if (timer1_flag == 1) {
+			buzzer_off();
 			status = AUTO_GREEN1_RED2;
 			SetTimer1(3000);
 		}
 		if (Button1_Is_Pressed() == 1) {
 			status = MAN_RED1_GREEN2;
-			SetTimer1(3000);
+			SetTimer1(2000);
 		}
 		break;
 
@@ -81,7 +86,7 @@ void auto_fsm_run() {
 		}
 		if (Button1_Is_Pressed() == 1) {
 			status = MAN_RED1_GREEN2;
-			SetTimer1(3000);
+			SetTimer1(2000);
 		}
 		if (Button4_Is_Pressed() == 1) {
 			status = PED_RED1_RED2;

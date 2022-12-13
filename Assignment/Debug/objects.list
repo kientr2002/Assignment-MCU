@@ -1,6 +1,10 @@
 "./Core/Src/auto_fsm.o"
 "./Core/Src/button.o"
+<<<<<<< HEAD
+"./Core/Src/buzzer.o"
+=======
 "./Core/Src/delay.o"
+>>>>>>> main
 "./Core/Src/global.o"
 "./Core/Src/main.o"
 "./Core/Src/man_fsm.o"
