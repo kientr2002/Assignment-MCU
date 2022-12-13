@@ -27,7 +27,6 @@
 #include "man_fsm.h"
 #include "tun_fsm.h"
 #include "ped_fsm.h"
-#include "melody.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,14 +48,7 @@ TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 
 /* USER CODE BEGIN PV */
-uint8_t get_data;
-extern const Melody_Typedef OK_Melody;
-extern const Melody_Typedef ERROR_Melody;
-const Melody_Typedef TOUCH1_Melody = {
-		/*notes*/	{NOTE_GS6},
-		/*tempo*/	{6},
-		/*Count*/	1
-};
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -113,15 +105,14 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  HAL_TIM_Base_Start_IT(&htim2);
   //HAL_TIMEx_PWMN_Start(&htim3, TIM_CHANNEL_1);
 //  htim3.Instance->CCR1 = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_Delay(500);
   status = INIT;
   while (1)
   {
@@ -129,15 +120,6 @@ int main(void)
 	  man_fsm_run();
 	  tun_fsm_run();
 	  ped_fsm_run();
-<<<<<<< HEAD
-=======
-	  //HAL_Delay(10);
-	  //Test_IO();
-//	  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 100);
-//	  HAL_Delay(1000);
-//	  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 1000);
-//	  HAL_Delay(1000);
->>>>>>> main
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
