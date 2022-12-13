@@ -7,7 +7,11 @@
 C_SRCS += \
 ../Core/Src/auto_fsm.c \
 ../Core/Src/button.c \
+<<<<<<< HEAD
+../Core/Src/buzzer.c \
+=======
 ../Core/Src/delay.c \
+>>>>>>> main
 ../Core/Src/global.c \
 ../Core/Src/main.c \
 ../Core/Src/man_fsm.c \
@@ -28,7 +32,11 @@ C_SRCS += \
 OBJS += \
 ./Core/Src/auto_fsm.o \
 ./Core/Src/button.o \
+<<<<<<< HEAD
+./Core/Src/buzzer.o \
+=======
 ./Core/Src/delay.o \
+>>>>>>> main
 ./Core/Src/global.o \
 ./Core/Src/main.o \
 ./Core/Src/man_fsm.o \
@@ -49,7 +57,11 @@ OBJS += \
 C_DEPS += \
 ./Core/Src/auto_fsm.d \
 ./Core/Src/button.d \
+<<<<<<< HEAD
+./Core/Src/buzzer.d \
+=======
 ./Core/Src/delay.d \
+>>>>>>> main
 ./Core/Src/global.d \
 ./Core/Src/main.d \
 ./Core/Src/man_fsm.d \

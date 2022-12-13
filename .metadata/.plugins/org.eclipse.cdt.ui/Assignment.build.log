@@ -1,30 +1,8 @@
-21:17:24 **** Incremental Build of configuration Debug for project Assignment ****
-make -j4 all 
-arm-none-eabi-gcc "../Core/Src/auto_fsm.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/auto_fsm.d" -MT"Core/Src/auto_fsm.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/auto_fsm.o"
-arm-none-eabi-gcc "../Core/Src/ped_fsm.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/ped_fsm.d" -MT"Core/Src/ped_fsm.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/ped_fsm.o"
-../Core/Src/auto_fsm.c: In function 'auto_fsm_run':
-../Core/Src/auto_fsm.c:15:3: warning: implicit declaration of function 'Traffic2_Off'; did you mean 'Traffic3_Off'? [-Wimplicit-function-declaration]
-   15 |   Traffic2_Off();
-      |   ^~~~~~~~~~~~
-      |   Traffic3_Off
-../Core/Src/ped_fsm.c: In function 'ped_fsm_run':
-../Core/Src/ped_fsm.c:14:3: warning: implicit declaration of function 'RED_2'; did you mean 'RED_3'? [-Wimplicit-function-declaration]
-   14 |   RED_2();
-      |   ^~~~~
-      |   RED_3
-../Core/Src/auto_fsm.c:26:3: warning: implicit declaration of function 'GREEN_2'; did you mean 'GREEN_3'? [-Wimplicit-function-declaration]
-   26 |   GREEN_2();
-      |   ^~~~~~~
-      |   GREEN_3
-../Core/Src/auto_fsm.c:41:3: warning: implicit declaration of function 'YELLOW_2'; did you mean 'YELLOW_1'? [-Wimplicit-function-declaration]
-   41 |   YELLOW_2();
-      |   ^~~~~~~~
-      |   YELLOW_1
-../Core/Src/auto_fsm.c:56:3: warning: implicit declaration of function 'RED_2'; did you mean 'RED_3'? [-Wimplicit-function-declaration]
-   56 |   RED_2();
-      |   ^~~~~
-      |   RED_3
-arm-none-eabi-gcc -o "Assignment.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\84336\Desktop\Assignment-MCU\Assignment\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Assignment.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+14:19:41 **** Incremental Build of configuration Debug for project Assignment ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/man_fsm.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/man_fsm.d" -MT"Core/Src/man_fsm.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/man_fsm.o"
+arm-none-eabi-gcc "../Core/Src/tun_fsm.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/tun_fsm.d" -MT"Core/Src/tun_fsm.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/tun_fsm.o"
+arm-none-eabi-gcc -o "Assignment.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Workspace\VXL\Project-New\MyAssignment\Assignment-MCU\Assignment\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Assignment.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Assignment.elf
  
 arm-none-eabi-size   Assignment.elf 
@@ -32,15 +10,15 @@ arm-none-eabi-objdump -h -S  Assignment.elf  > "Assignment.list"
 arm-none-eabi-objcopy  -O ihex  Assignment.elf  "Assignment.hex"
 arm-none-eabi-objcopy  -O binary  Assignment.elf  "Assignment.bin"
    text	   data	    bss	    dec	    hex	filename
-  12292	    100	   1780	  14172	   375c	Assignment.elf
+  12212	    100	   1748	  14060	   36ec	Assignment.elf
 Finished building: default.size.stdout
  
 Finished building: Assignment.hex
-Finished building: Assignment.list
 Finished building: Assignment.bin
  
  
+Finished building: Assignment.list
  
 
-21:17:25 Build Finished. 0 errors, 5 warnings. (took 1s.563ms)
+14:19:42 Build Finished. 0 errors, 0 warnings. (took 1s.453ms)
 

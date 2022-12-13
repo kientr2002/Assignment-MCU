@@ -12,7 +12,9 @@
 #include "button.h"
 #include "main.h"
 #include "traffic1.h"
+#include "traffic2.h"
 #include "pdtlight1.h"
+#include "buzzer.h"
 
 #define INIT				1
 
