@@ -7,9 +7,11 @@
 C_SRCS += \
 ../Core/Src/auto_fsm.c \
 ../Core/Src/button.c \
+../Core/Src/delay.c \
 ../Core/Src/global.c \
 ../Core/Src/main.c \
 ../Core/Src/man_fsm.c \
+../Core/Src/melody.c \
 ../Core/Src/pdtlight.c \
 ../Core/Src/ped_fsm.c \
 ../Core/Src/software_timer.c \
@@ -18,6 +20,7 @@ C_SRCS += \
 ../Core/Src/syscalls.c \
 ../Core/Src/sysmem.c \
 ../Core/Src/system_stm32f1xx.c \
+../Core/Src/task.c \
 ../Core/Src/traffic1.c \
 ../Core/Src/traffic2.c \
 ../Core/Src/tun_fsm.c 
@@ -25,9 +28,11 @@ C_SRCS += \
 OBJS += \
 ./Core/Src/auto_fsm.o \
 ./Core/Src/button.o \
+./Core/Src/delay.o \
 ./Core/Src/global.o \
 ./Core/Src/main.o \
 ./Core/Src/man_fsm.o \
+./Core/Src/melody.o \
 ./Core/Src/pdtlight.o \
 ./Core/Src/ped_fsm.o \
 ./Core/Src/software_timer.o \
@@ -36,6 +41,7 @@ OBJS += \
 ./Core/Src/syscalls.o \
 ./Core/Src/sysmem.o \
 ./Core/Src/system_stm32f1xx.o \
+./Core/Src/task.o \
 ./Core/Src/traffic1.o \
 ./Core/Src/traffic2.o \
 ./Core/Src/tun_fsm.o 
@@ -43,9 +49,11 @@ OBJS += \
 C_DEPS += \
 ./Core/Src/auto_fsm.d \
 ./Core/Src/button.d \
+./Core/Src/delay.d \
 ./Core/Src/global.d \
 ./Core/Src/main.d \
 ./Core/Src/man_fsm.d \
+./Core/Src/melody.d \
 ./Core/Src/pdtlight.d \
 ./Core/Src/ped_fsm.d \
 ./Core/Src/software_timer.d \
@@ -54,6 +62,7 @@ C_DEPS += \
 ./Core/Src/syscalls.d \
 ./Core/Src/sysmem.d \
 ./Core/Src/system_stm32f1xx.d \
+./Core/Src/task.d \
 ./Core/Src/traffic1.d \
 ./Core/Src/traffic2.d \
 ./Core/Src/tun_fsm.d 
