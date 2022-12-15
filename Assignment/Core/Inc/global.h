@@ -35,6 +35,25 @@
 
 #define PED_RED1_RED2		32
 
+#define MAX_BUFFER_SIZE  30
+
+#define RST_INIT	50
+#define RST_1	51
+#define RST_2	52
+#define RST_3	53
+#define RST_4	54
+#define	START	55
+#define OK_1	56
+#define OK_2	57
+#define OK_3	58
+#define OK_INIT 62
+#define ENTER_COUNTER	59
+#define ENTER			60
+
+#define INPUT	80
+#define RST		81
+#define OK		82
+
 extern int status;
 
 #endif /* INC_GLOBAL_H_ */
