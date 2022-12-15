@@ -27,6 +27,8 @@
 #include "man_fsm.h"
 #include "tun_fsm.h"
 #include "ped_fsm.h"
+#include "stdio.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,6 +49,8 @@
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 
+UART_HandleTypeDef huart2;
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -56,22 +60,164 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
+static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-//void Test_IO() {
-//	HAL_GPIO_WritePin(D2_GPIO_Port, D2_Pin,
-//			HAL_GPIO_ReadPin(A1_GPIO_Port, A1_Pin));
-//	HAL_GPIO_WritePin(D3_GPIO_Port, D3_Pin,
-//			HAL_GPIO_ReadPin(A2_GPIO_Port, A2_Pin));
-//	HAL_GPIO_WritePin(D4_GPIO_Port, D4_Pin,
-//			HAL_GPIO_ReadPin(A3_GPIO_Port, A3_Pin));
-//	HAL_GPIO_WritePin(D6_GPIO_Port, D6_Pin,
-//			HAL_GPIO_ReadPin(A0_GPIO_Port, A0_Pin));
-//}
+uint8_t system_space[] = " ";
+uint8_t system_counter[] = "\r\nEnter counter and press space:";
+uint8_t system_enter[] = "\r\n";
+uint8_t system_tutorial1[] = " -Enter !RST# to Run program.\r\n";
+uint8_t system_tutorial2[] = " -Enter !OK# to Confirm and End program.\r\n";
+uint8_t system_success[] = "\r\nSuccess!\r\n";
+uint8_t system_error[] = "\r\nError! Please enter again!\r\n";
+
+uint8_t counter = 0;
+uint8_t input = 0;
+uint8_t buffer[MAX_BUFFER_SIZE];
+uint8_t index_buffer = 0;
+uint8_t buffer_flag = 0;
+uint8_t success_flag = 0;
+uint8_t led_flag = 0;
+char str[30];
+int status_command;
+int status_UART;
+
+
+void command_parser_fsm(){
+	switch(status_command){
+	case	RST_INIT:
+		led_flag = 0;
+		if(input == '!'){
+			counter = 0;
+			status_command = RST_1;
+		} else {
+			 HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
+		}
+		break;
+	case	RST_1:
+		if(input == 'R'){
+			status_command = RST_2;
+		} else {
+			status_command = RST_INIT;
+			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
+		}
+		break;
+	case	RST_2:
+		if(input == 'S'){
+			status_command = RST_3;
+		} else {
+			status_command = RST_INIT;
+			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
+		}
+		break;
+	case	RST_3:
+		if(input == 'T'){
+			status_command = RST_4;
+		} else {
+			status_command = RST_INIT;
+			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
+		}
+		break;
+	case	RST_4:
+		if(input == '#'){
+			HAL_UART_Transmit(&huart2, system_counter, sizeof(system_counter), 1000);
+			HAL_UART_Transmit(&huart2, system_enter, sizeof(system_enter), 1000);
+			status_command = ENTER_COUNTER;
+		} else {
+			status_command = RST_INIT;
+			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
+		}
+		break;
+	case	START:
+		if(input == '!'){
+			status_command = OK_1;
+		} else {
+			status_command = START;
+			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
+		}
+		break;
+	case	OK_1:
+		if(input == 'O'){
+			status_command = OK_2;
+		} else {
+			status_command = START;
+			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
+		}
+		break;
+	case	OK_2:
+		if(input == 'K'){
+			status_command = OK_3;
+		} else {
+			status_command = START;
+			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
+		}
+		break;
+	case	OK_3:
+		if(input == '#'){
+			status_UART = OK;
+			status_command = RST_INIT;
+		} else {
+			status_command = START;
+			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
+		}
+		break;
+	case ENTER_COUNTER:
+		if(input == ' '){
+			status_UART = RST;
+			HAL_UART_Transmit(&huart2, system_enter, sizeof(system_enter), 1000);
+		} else {
+			counter = counter*10 + (input-48);
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+void uart_communiation_fsm(){
+	switch(status_UART){
+	case OK_INIT:
+		led_flag = 0;
+		if(success_flag == 1){
+			HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "count: %d s\r\n",counter), 1000);
+		HAL_UART_Transmit(&huart2, system_success, sizeof(system_success), 1000);
+			success_flag = 0;
+		}
+		break;
+	case RST:
+		led_flag = 1;
+		if (timer1_flag == 1){
+			HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "count: %d s\r\n",counter), 1000);
+			counter--;
+			if(counter == 0){
+				status_UART = OK;
+			}
+			status_command = START;
+			SetTimer1(1000);
+		}
+		break;
+	case OK:
+		success_flag = 1;
+		status_UART = OK_INIT;
+		break;
+	default:
+		break;
+	}
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+	if(huart->Instance == USART2){
+		buffer[index_buffer++] = input;
+		if(index_buffer == 30) index_buffer = 0;
+		buffer_flag = 1;
+		HAL_UART_Receive_IT(&huart2, &input, 1);
+		HAL_UART_Transmit(&huart2, &input, 1, 1000);
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -104,6 +250,7 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
   HAL_TIM_Base_Start_IT(&htim2);
@@ -116,10 +263,18 @@ int main(void)
   status = INIT;
   while (1)
   {
-	  auto_fsm_run();
-	  man_fsm_run();
-	  tun_fsm_run();
-	  ped_fsm_run();
+	  if(led_flag == 1){
+		  auto_fsm_run();
+		  man_fsm_run();
+		  tun_fsm_run();
+		  ped_fsm_run();
+	  }
+	  if(buffer_flag == 1){
+		  command_parser_fsm();
+		  buffer_flag = 0;
+	  }
+	  uart_communiation_fsm();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -265,6 +420,39 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 2 */
   HAL_TIM_MspPostInit(&htim3);
+
+}
+
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 9600;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
 
 }
 

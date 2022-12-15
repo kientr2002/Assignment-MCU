@@ -24,6 +24,7 @@ Core/Src/ped_fsm.o: ../Core/Src/ped_fsm.c ../Core/Inc/ped_fsm.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
  ../Core/Inc/button.h ../Core/Inc/traffic1.h ../Core/Inc/traffic2.h \
  ../Core/Inc/pdtlight1.h ../Core/Inc/buzzer.h
 
@@ -82,6 +83,8 @@ Core/Src/ped_fsm.o: ../Core/Src/ped_fsm.c ../Core/Inc/ped_fsm.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
+
+../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 
 ../Core/Inc/button.h:
 
