@@ -24,7 +24,9 @@ Core/Src/global.o: ../Core/Src/global.c ../Core/Inc/global.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
- ../Core/Inc/button.h ../Core/Inc/traffic1.h ../Core/Inc/pdtlight1.h
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
+ ../Core/Inc/button.h ../Core/Inc/traffic1.h ../Core/Inc/traffic2.h \
+ ../Core/Inc/pdtlight1.h ../Core/Inc/buzzer.h ../Core/Inc/global.h
 
 ../Core/Inc/global.h:
 
@@ -80,8 +82,16 @@ Core/Src/global.o: ../Core/Src/global.c ../Core/Inc/global.h \
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 
+../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
+
 ../Core/Inc/button.h:
 
 ../Core/Inc/traffic1.h:
 
+../Core/Inc/traffic2.h:
+
 ../Core/Inc/pdtlight1.h:
+
+../Core/Inc/buzzer.h:
+
+../Core/Inc/global.h:
