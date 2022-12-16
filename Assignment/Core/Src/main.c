@@ -81,7 +81,7 @@ uint8_t buffer[MAX_BUFFER_SIZE];
 uint8_t index_buffer = 0;
 uint8_t buffer_flag = 0;
 uint8_t success_flag = 0;
-uint8_t led_flag = 0;
+
 char str[30];
 int status_command;
 int status_UART;
@@ -90,7 +90,7 @@ int status_UART;
 void command_parser_fsm(){
 	switch(status_command){
 	case	RST_INIT:
-		led_flag = 0;
+
 		if(input == '!'){
 			counter = 0;
 			status_command = RST_1;
@@ -181,7 +181,7 @@ void command_parser_fsm(){
 void uart_communiation_fsm(){
 	switch(status_UART){
 	case OK_INIT:
-		led_flag = 0;
+
 		if(success_flag == 1){
 			HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "count: %d s\r\n",counter), 1000);
 		HAL_UART_Transmit(&huart2, system_success, sizeof(system_success), 1000);
@@ -189,7 +189,7 @@ void uart_communiation_fsm(){
 		}
 		break;
 	case RST:
-		led_flag = 1;
+
 		if (timer1_flag == 1){
 			HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "count: %d s\r\n",counter), 1000);
 			counter--;
@@ -263,12 +263,12 @@ int main(void)
   status = INIT;
   while (1)
   {
-	  if(led_flag == 1){
-		  auto_fsm_run();
-		  man_fsm_run();
-		  tun_fsm_run();
-		  ped_fsm_run();
-	  }
+
+	  auto_fsm_run();
+	  man_fsm_run();
+	  tun_fsm_run();
+	  ped_fsm_run();
+
 	  if(buffer_flag == 1){
 		  command_parser_fsm();
 		  buffer_flag = 0;
