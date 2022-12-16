@@ -7,15 +7,10 @@
 C_SRCS += \
 ../Core/Src/auto_fsm.c \
 ../Core/Src/button.c \
-<<<<<<< HEAD
 ../Core/Src/buzzer.c \
-=======
-../Core/Src/delay.c \
->>>>>>> main
 ../Core/Src/global.c \
 ../Core/Src/main.c \
 ../Core/Src/man_fsm.c \
-../Core/Src/melody.c \
 ../Core/Src/pdtlight.c \
 ../Core/Src/ped_fsm.c \
 ../Core/Src/software_timer.c \
@@ -32,15 +27,10 @@ C_SRCS += \
 OBJS += \
 ./Core/Src/auto_fsm.o \
 ./Core/Src/button.o \
-<<<<<<< HEAD
 ./Core/Src/buzzer.o \
-=======
-./Core/Src/delay.o \
->>>>>>> main
 ./Core/Src/global.o \
 ./Core/Src/main.o \
 ./Core/Src/man_fsm.o \
-./Core/Src/melody.o \
 ./Core/Src/pdtlight.o \
 ./Core/Src/ped_fsm.o \
 ./Core/Src/software_timer.o \
@@ -57,15 +47,10 @@ OBJS += \
 C_DEPS += \
 ./Core/Src/auto_fsm.d \
 ./Core/Src/button.d \
-<<<<<<< HEAD
 ./Core/Src/buzzer.d \
-=======
-./Core/Src/delay.d \
->>>>>>> main
 ./Core/Src/global.d \
 ./Core/Src/main.d \
 ./Core/Src/man_fsm.d \
-./Core/Src/melody.d \
 ./Core/Src/pdtlight.d \
 ./Core/Src/ped_fsm.d \
 ./Core/Src/software_timer.d \
