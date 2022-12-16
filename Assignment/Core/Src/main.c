@@ -67,13 +67,7 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t system_space[] = " ";
-uint8_t system_counter[] = "\r\nEnter counter and press space:";
-uint8_t system_enter[] = "\r\n";
-uint8_t system_tutorial1[] = " -Enter !RST# to Run program.\r\n";
-uint8_t system_tutorial2[] = " -Enter !OK# to Confirm and End program.\r\n";
-uint8_t system_success[] = "\r\nSuccess!\r\n";
-uint8_t system_error[] = "\r\nError! Please enter again!\r\n";
+
 
 uint8_t counter = 0;
 uint8_t input = 0;
@@ -95,7 +89,6 @@ void command_parser_fsm(){
 			status_command = RST_2;
 		} else {
 			status_command = RST_INIT;
-			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
 		}
 		break;
 	case	RST_2:
@@ -105,7 +98,6 @@ void command_parser_fsm(){
 			status_UART = RST;
 		} else {
 			status_command = RST_INIT;
-			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
 		}
 		break;
 	case	START:
@@ -113,7 +105,6 @@ void command_parser_fsm(){
 			status_command = OK_2;
 		} else {
 			status_command = START;
-			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
 		}
 		break;
 	case	OK_2:
@@ -122,7 +113,6 @@ void command_parser_fsm(){
 			status_command = RST_INIT;
 		} else {
 			status_command = START;
-			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
 		}
 		break;
 	default:
@@ -136,7 +126,6 @@ void uart_communiation_fsm(){
 	case INIT:
 		if(success_flag == 1){
 			HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",counter), 1000);
-		HAL_UART_Transmit(&huart2, system_success, sizeof(system_success), 1000);
 			success_flag = 0;
 		}
 		break;
