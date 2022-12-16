@@ -90,16 +90,8 @@ int status_UART;
 void command_parser_fsm(){
 	switch(status_command){
 	case	RST_INIT:
-
-		if(input == '!'){
-			counter = 0;
-			status_command = RST_1;
-		} else {
-			 HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
-		}
-		break;
-	case	RST_1:
-		if(input == 'R'){
+		if(input >= '0' && input <= '9'){
+			counter = (input - 48)*10;
 			status_command = RST_2;
 		} else {
 			status_command = RST_INIT;
@@ -107,40 +99,16 @@ void command_parser_fsm(){
 		}
 		break;
 	case	RST_2:
-		if(input == 'S'){
-			status_command = RST_3;
-		} else {
-			status_command = RST_INIT;
-			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
-		}
-		break;
-	case	RST_3:
-		if(input == 'T'){
-			status_command = RST_4;
-		} else {
-			status_command = RST_INIT;
-			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
-		}
-		break;
-	case	RST_4:
-		if(input == '#'){
-			HAL_UART_Transmit(&huart2, system_counter, sizeof(system_counter), 1000);
-			HAL_UART_Transmit(&huart2, system_enter, sizeof(system_enter), 1000);
-			status_command = ENTER_COUNTER;
+		if(input >= '0' && input <= '9'){
+			counter = counter + (input - 48);
+			status_command = START;
+			status_UART = RST;
 		} else {
 			status_command = RST_INIT;
 			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
 		}
 		break;
 	case	START:
-		if(input == '!'){
-			status_command = OK_1;
-		} else {
-			status_command = START;
-			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
-		}
-		break;
-	case	OK_1:
 		if(input == 'O'){
 			status_command = OK_2;
 		} else {
@@ -150,14 +118,6 @@ void command_parser_fsm(){
 		break;
 	case	OK_2:
 		if(input == 'K'){
-			status_command = OK_3;
-		} else {
-			status_command = START;
-			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
-		}
-		break;
-	case	OK_3:
-		if(input == '#'){
 			status_UART = OK;
 			status_command = RST_INIT;
 		} else {
@@ -165,49 +125,45 @@ void command_parser_fsm(){
 			HAL_UART_Transmit(&huart2, system_error, sizeof(system_error), 1000);
 		}
 		break;
-	case ENTER_COUNTER:
-		if(input == ' '){
-			status_UART = RST;
-			HAL_UART_Transmit(&huart2, system_enter, sizeof(system_enter), 1000);
-		} else {
-			counter = counter*10 + (input-48);
-		}
-		break;
 	default:
 		break;
 	}
 }
 
+
 void uart_communiation_fsm(){
 	switch(status_UART){
-	case OK_INIT:
-
+	case INIT:
 		if(success_flag == 1){
-			HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "count: %d s\r\n",counter), 1000);
+			HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",counter), 1000);
 		HAL_UART_Transmit(&huart2, system_success, sizeof(system_success), 1000);
 			success_flag = 0;
 		}
 		break;
 	case RST:
-
 		if (timer1_flag == 1){
-			HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "count: %d s\r\n",counter), 1000);
-			counter--;
 			if(counter == 0){
 				status_UART = OK;
+				status_command = START;
 			}
-			status_command = START;
+			else {
+				HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",counter), 1000);
+				counter--;
+			}
 			SetTimer1(1000);
+
 		}
 		break;
 	case OK:
 		success_flag = 1;
-		status_UART = OK_INIT;
+		status_UART = INIT;
+		status_command = RST_INIT;
 		break;
 	default:
 		break;
 	}
 }
+
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	if(huart->Instance == USART2){
@@ -263,11 +219,10 @@ int main(void)
   status = INIT;
   while (1)
   {
-
-	  auto_fsm_run();
-	  man_fsm_run();
-	  tun_fsm_run();
-	  ped_fsm_run();
+		  auto_fsm_run();
+		  man_fsm_run();
+		  tun_fsm_run();
+		  ped_fsm_run();
 
 	  if(buffer_flag == 1){
 		  command_parser_fsm();
