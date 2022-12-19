@@ -67,100 +67,55 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
-
-uint8_t counter = 0;
-uint8_t input = 0;
-uint8_t buffer[MAX_BUFFER_SIZE];
-uint8_t index_buffer = 0;
-uint8_t buffer_flag = 0;
-uint8_t success_flag = 0;
-
+uint8_t system_space[] = " ";
 char str[30];
-int status_command;
-int status_UART;
-
-
-void command_parser_fsm(){
-	switch(status_command){
-	case	RST_INIT:
-		if(input >= '0' && input <= '9'){
-			counter = (input - 48)*10;
-			status_command = RST_2;
-		} else {
-			status_command = RST_INIT;
-		}
-		break;
-	case	RST_2:
-		if(input >= '0' && input <= '9'){
-			counter = counter + (input - 48);
-			status_command = START;
-			status_UART = RST;
-		} else {
-			status_command = RST_INIT;
-		}
-		break;
-	case	START:
-		if(input == 'O'){
-			status_command = OK_2;
-		} else {
-			status_command = START;
-		}
-		break;
-	case	OK_2:
-		if(input == 'K'){
-			status_UART = OK;
-			status_command = RST_INIT;
-		} else {
-			status_command = START;
-		}
-		break;
-	default:
-		break;
-	}
-}
-
-
 void uart_communiation_fsm(){
-	switch(status_UART){
+	switch(status){
 	case INIT:
-		if(success_flag == 1){
-			HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",counter), 1000);
-			success_flag = 0;
-		}
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",0), 1000);
 		break;
-	case RST:
-		if (timer1_flag == 1){
-			if(counter == 0){
-				status_UART = OK;
-				status_command = START;
-			}
-			else {
-				HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",counter), 1000);
-				counter--;
-			}
-			SetTimer1(1000);
-
-		}
+	case AUTO_RED1_GREEN2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",1), 1000);
 		break;
-	case OK:
-		success_flag = 1;
-		status_UART = INIT;
-		status_command = RST_INIT;
+	case AUTO_RED1_YELLOW2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",1), 1000);
+		break;
+	case AUTO_GREEN1_RED2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",1), 1000);
+		break;
+	case AUTO_YELLOW1_RED2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",1), 1000);
+		break;
+	case MAN_RED1_GREEN2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",2), 1000);
+		break;
+	case MAN_RED1_YELLOW2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",2), 1000);
+		break;
+	case MAN_GREEN1_RED2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",2), 1000);
+		break;
+	case MAN_YELLOW1_RED2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",2), 1000);
+		break;
+	case TUN_RED1_GREEN2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",3), 1000);
+		break;
+	case TUN_RED1_YELLOW2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",3), 1000);
+		break;
+	case TUN_GREEN1_RED2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",3), 1000);
+		break;
+	case TUN_YELLOW1_RED2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",3), 1000);
+		break;
+	case PED_RED1_RED2:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",4), 1000);
 		break;
 	default:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",0), 1000);
 		break;
-	}
-}
-
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
-	if(huart->Instance == USART2){
-		buffer[index_buffer++] = input;
-		if(index_buffer == 30) index_buffer = 0;
-		buffer_flag = 1;
-		HAL_UART_Receive_IT(&huart2, &input, 1);
-		HAL_UART_Transmit(&huart2, &input, 1, 1000);
 	}
 }
 /* USER CODE END 0 */
@@ -206,17 +161,13 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   status = INIT;
+  HAL_UART_Transmit(&huart2, system_space, sizeof(system_space), 1000);
   while (1)
   {
 		  auto_fsm_run();
 		  man_fsm_run();
 		  tun_fsm_run();
 		  ped_fsm_run();
-
-	  if(buffer_flag == 1){
-		  command_parser_fsm();
-		  buffer_flag = 0;
-	  }
 	  uart_communiation_fsm();
 
     /* USER CODE END WHILE */
