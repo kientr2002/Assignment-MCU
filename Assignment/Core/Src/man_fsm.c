@@ -9,24 +9,29 @@
 void man_fsm_run() {
 	switch (status) {
 
+	case MAN_INIT:
+		Traffic1_Off();
+		Traffic2_Off();
+		Traffic3_Off();
+		buzzer_off();
+
+		if (Button2_Is_Pressed() == 1) {
+			status = MAN_RED1_GREEN2;
+			SetTimer1(3000);
+		}
+		break;
+
 	case MAN_RED1_GREEN2:
 		RED_1();
 		GREEN_2();
 		GREEN_3();
-		buzzer_ring();
 
-		if (timer1_flag == 1) {
-			buzzer_off();
-			status = AUTO_RED1_YELLOW2;
+		if (timer1_flag == 1 || Button2_Is_Pressed() == 1) {
+			status = MAN_RED1_YELLOW2;
 			SetTimer1(2000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = TUN_RED1_GREEN2;
-			SetTimer1(10000);
-		}
-		if (Button2_Is_Pressed() == 1){
-			status = MAN_RED1_YELLOW2;
-			SetTimer1(2000);
+			status = TUN_INIT;
 		}
 		break;
 
@@ -34,19 +39,13 @@ void man_fsm_run() {
 		YELLOW_2();
 		RED_1();
 		GREEN_3();
-		buzzer_ring();
 
-		if (timer1_flag == 1) {
+		if (timer1_flag == 1 || Button2_Is_Pressed() == 1) {
 			status = AUTO_GREEN1_RED2;
 			SetTimer1(3000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = TUN_RED1_GREEN2;
-			SetTimer1(10000);
-		}
-		if (Button2_Is_Pressed() == 1) {
-			status = MAN_GREEN1_RED2;
-			SetTimer1(3000);
+			status = TUN_INIT;
 		}
 		break;
 
@@ -54,24 +53,18 @@ void man_fsm_run() {
 		GREEN_1();
 		RED_2();
 		RED_3();
-		buzzer_off();
 
-		if (timer1_flag == 1) {
+		if (timer1_flag == 1 || Button2_Is_Pressed() == 1) {
 			status = AUTO_YELLOW1_RED2;
 			SetTimer1(2000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = TUN_RED1_GREEN2;
-			SetTimer1(10000);
+			status = TUN_INIT;
 		}
-		if (Button2_Is_Pressed() == 1) {
-			status = MAN_YELLOW1_RED2;
-			SetTimer1(2000);
-		}
-		if(Button4_Is_Pressed() == 1)
+		if (Button4_Is_Pressed() == 1)
 		{
-			status = PED_RED1_RED2;
-			SetTimer1(3000);
+			status = PED_STATE;
+			SetTimer4(3000);
 		}
 		break;
 
@@ -81,23 +74,17 @@ void man_fsm_run() {
 		RED_3();
 		buzzer_off();
 
-		if (timer1_flag == 1) {
+		if (timer1_flag == 1 || Button2_Is_Pressed() == 1) {
 			status = AUTO_RED1_GREEN2;
 			SetTimer1(3000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = TUN_RED1_GREEN2;
-			SetTimer1(10000);
+			status = TUN_INIT;
 		}
-		if (Button2_Is_Pressed() == 1) {
-			status = MAN_RED1_GREEN2;
-			SetTimer1(3000);
+		if (Button4_Is_Pressed() == 1) {
+			status = PED_STATE;
+			SetTimer5(2000);
 		}
-		if(Button4_Is_Pressed() == 1)
-				{
-					status = PED_RED1_RED2;
-					SetTimer1(3000);
-				}
 		break;
 	}
 }

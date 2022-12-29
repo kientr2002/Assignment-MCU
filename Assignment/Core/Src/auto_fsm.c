@@ -22,20 +22,17 @@ void auto_fsm_run() {
 		}
 		break;
 
-	case AUTO_RED1_GREEN2:
-		RED_1();
+	case AUTO_RED1_GREEN2: // lane1 RED lane2 GREEN
+		RED_1(); // lane1 đỏ 3s
 		GREEN_2();
-		GREEN_3();
-		buzzer_ring();
+		GREEN_3(); // đèn ng đi bộ xanh, báo hiệu ng đi bộ đc đi
 
-		if (timer1_flag == 1) {
-			buzzer_off();
+		if (timer1_flag == 1) { // đỏ hết 3s
 			status = AUTO_RED1_YELLOW2;
 			SetTimer1(2000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = MAN_RED1_GREEN2;
-			SetTimer1(3000);
+			status = MAN_INIT;
 		}
 		break;
 
@@ -43,16 +40,13 @@ void auto_fsm_run() {
 		RED_1();
 		YELLOW_2();
 		GREEN_3();
-		buzzer_ring();
 
 		if (timer1_flag == 1) {
-			buzzer_off();
 			status = AUTO_GREEN1_RED2;
 			SetTimer1(3000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = MAN_RED1_GREEN2;
-			SetTimer1(2000);
+			status = MAN_INIT;
 		}
 		break;
 
@@ -66,12 +60,11 @@ void auto_fsm_run() {
 			SetTimer1(2000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = MAN_RED1_GREEN2;
-			SetTimer1(3000);
+			status = MAN_INIT;
 		}
 		if (Button4_Is_Pressed() == 1) {
-			status = PED_RED1_RED2;
-			SetTimer1(3000);
+			status = PED_STATE;
+			SetTimer2(3000);
 		}
 		break;
 
@@ -85,12 +78,11 @@ void auto_fsm_run() {
 			SetTimer1(3000);
 		}
 		if (Button1_Is_Pressed() == 1) {
-			status = MAN_RED1_GREEN2;
-			SetTimer1(2000);
+			status = MAN_INIT;
 		}
 		if (Button4_Is_Pressed() == 1) {
-			status = PED_RED1_RED2;
-			SetTimer2(2000);
+			status = PED_STATE;
+			SetTimer3(2000);
 		}
 		break;
 	}
