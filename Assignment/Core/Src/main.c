@@ -74,6 +74,12 @@ void uart_communiation_fsm(){
 	case INIT:
 		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",0), 1000);
 		break;
+	case TUN_INIT:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",0), 1000);
+		break;
+	case MAN_INIT:
+		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",0), 1000);
+		break;
 	case AUTO_RED1_GREEN2:
 		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",1), 1000);
 		break;
@@ -110,7 +116,7 @@ void uart_communiation_fsm(){
 	case TUN_YELLOW1_RED2:
 		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",3), 1000);
 		break;
-	case PED_RED1_RED2:
+	case PED_STATE:
 		HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%d#\r\n",4), 1000);
 		break;
 	default:
