@@ -68,7 +68,6 @@ static void MX_USART2_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-
 uint8_t counter = 0;
 uint8_t input = 0;
 uint8_t buffer[MAX_BUFFER_SIZE];
@@ -79,7 +78,6 @@ uint8_t success_flag = 0;
 char str[30];
 int status_command;
 int status_UART;
-
 
 void command_parser_fsm(){
 	switch(status_command){
@@ -120,7 +118,6 @@ void command_parser_fsm(){
 	}
 }
 
-
 void uart_communiation_fsm(){
 	switch(status_UART){
 	case INIT:
@@ -140,7 +137,6 @@ void uart_communiation_fsm(){
 				counter--;
 			}
 			SetTimer1(1000);
-
 		}
 		break;
 	case OK:
@@ -153,8 +149,7 @@ void uart_communiation_fsm(){
 	}
 }
 
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	if(huart->Instance == USART2){
 		buffer[index_buffer++] = input;
 		if(index_buffer == 30) index_buffer = 0;
@@ -208,17 +203,16 @@ int main(void)
   status = INIT;
   while (1)
   {
-		  auto_fsm_run();
-		  man_fsm_run();
-		  tun_fsm_run();
-		  ped_fsm_run();
+	  auto_fsm_run();
+	  man_fsm_run();
+	  tun_fsm_run();
+	  ped_fsm_run();
 
-	  if(buffer_flag == 1){
+	  if (buffer_flag == 1) {
 		  command_parser_fsm();
 		  buffer_flag = 0;
 	  }
 	  uart_communiation_fsm();
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
