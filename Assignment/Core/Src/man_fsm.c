@@ -41,7 +41,7 @@ void man_fsm_run() {
 		GREEN_3();
 
 		if (timer1_flag == 1 || Button2_Is_Pressed() == 1) {
-			status = AUTO_GREEN1_RED2;
+			status = MAN_GREEN1_RED2;
 			SetTimer1(3000);
 		}
 		if (Button1_Is_Pressed() == 1) {
@@ -55,7 +55,7 @@ void man_fsm_run() {
 		RED_3();
 
 		if (timer1_flag == 1 || Button2_Is_Pressed() == 1) {
-			status = AUTO_YELLOW1_RED2;
+			status = MAN_YELLOW1_RED2;
 			SetTimer1(2000);
 		}
 		if (Button1_Is_Pressed() == 1) {
@@ -75,7 +75,7 @@ void man_fsm_run() {
 		buzzer_off();
 
 		if (timer1_flag == 1 || Button2_Is_Pressed() == 1) {
-			status = AUTO_RED1_GREEN2;
+			status = MAN_RED1_GREEN2;
 			SetTimer1(3000);
 		}
 		if (Button1_Is_Pressed() == 1) {
