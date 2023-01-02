@@ -1,0 +1,2 @@
+buzzer.c:9:6:buzzer_ring	4	static
+buzzer.c:14:6:buzzer_off	4	static

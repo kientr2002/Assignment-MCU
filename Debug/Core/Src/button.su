@@ -1,0 +1,12 @@
+button.c:34:6:SubKeyProcess1	4	static
+button.c:38:6:SubKeyProcess2	4	static
+button.c:42:6:SubKeyProcess3	4	static
+button.c:46:6:SubKeyProcess4	4	static
+button.c:50:5:Button1_Is_Pressed	4	static
+button.c:58:5:Button2_Is_Pressed	4	static
+button.c:66:5:Button3_Is_Pressed	4	static
+button.c:74:5:Button4_Is_Pressed	4	static
+button.c:82:6:GetKeyInput1	8	static
+button.c:103:6:GetKeyInput2	8	static
+button.c:124:6:GetKeyInput3	8	static
+button.c:145:6:GetKeyInput4	8	static
